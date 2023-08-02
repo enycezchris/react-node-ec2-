@@ -1,22 +1,33 @@
 const express = require("express");
 const app = express();
 const { db, Information } = require("./db");
-
-const jsonObj = { title: "Hello World!", description: "EC2 Node App!" };
+const cors = require("cors");
 
 const PORT = 3001;
 
-app.get("/", (req, res) => {
-  res.json(jsonObj);
+// cors middleware
+app.use(cors());
+
+// api endpoints
+app.get("/", async (req, res) => {
+  const information = await Information.findAll();
+  console.log("information", information);
+  res.json(information);
 });
 
+// setup and connecting DB
 const setupData = async () => {
   await db.sync({ force: true });
-  const newInfo = await Information.create({
-    title: "Hello World!",
-    description: "Testing psql/sequelize on aws rds",
-  });
-  console.log("newInfo", newInfo);
+  const [info1, info2] = await Promise.all([
+    Information.create({
+      title: "React Node App!",
+      description: "Deploy React Express App on EC2 Instance!",
+    }),
+    Information.create({
+      title: "Deployment on EC2 Works!",
+      description: "React Node App Deployed!",
+    }),
+  ]);
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`listening on port ${PORT}`);
   });
