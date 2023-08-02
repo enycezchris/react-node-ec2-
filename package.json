@@ -10,6 +10,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "npm-run-all": "^4.1.5",
     "pg": "^8.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "node app.js",
+    "parallel": "run-p server start"
   },
   "eslintConfig": {
     "extends": [
@@ -30,7 +33,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://3.142.12.33:3001",
   "browserslist": {
     "production": [
       ">0.2%",
